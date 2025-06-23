@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #container {
+      width: 400px;
+      height: 300px;
+      border: 1px solid black;
+      position: relative;
+    }
+    #circle {
+      width: 50px;
+      height: 50px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+      cursor: move;
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+  <div id="circle"></div>
+</div>
+
+<script>
+  const circle = document.getElementById('circle');
+  let isDragging = false;
+  let offsetX, offsetY;
+  let currentX = 0;
+  let currentY = 0;
+  const moveStep = 5; // 每次按键移动的像素
+
+  // 鼠标拖动逻辑
+  circle.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - circle.getBoundingClientRect().left;
+    offsetY = e.clientY - circle.getBoundingClientRect().top;
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const container = circle.parentElement;
+    const rect = container.getBoundingClientRect();
+
+    let x = e.clientX - rect.left - offsetX;
+    let y = e.clientY - rect.top - offsetY;
+
+    // 限制在容器内
+    x = Math.max(0, Math.min(x, rect.width - 50));
+    y = Math.max(0, Math.min(y, rect.height - 50));
+
+    circle.style.left = `${x}px`;
+    circle.style.top = `${y}px`;
+    currentX = x;
+    currentY = y;
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+
+  // 键盘控制逻辑
+  document.addEventListener('keydown', (e) => {
+    if (!e.ctrlKey) return; // 只有按住Ctrl键才响应
+
+    const container = circle.parentElement;
+    const rect = container.getBoundingClientRect();
+
+    // 根据按键更新位置
+    switch (e.key) {
+      case 'ArrowUp':
+        currentY = Math.max(0, currentY - moveStep);
+        break;
+      case 'ArrowDown':
+        currentY = Math.min(rect.height - 50, currentY + moveStep);
+        break;
+      case 'ArrowLeft':
+        currentX = Math.max(0, currentX - moveStep);
+        break;
+      case 'ArrowRight':
+        currentX = Math.min(rect.width - 50, currentX + moveStep);
+        break;
+      default:
+        return; // 不是方向键则不处理
+    }
+
+    // 应用新位置
+    circle.style.left = `${currentX}px`;
+    circle.style.top = `${currentY}px`;
+
+    // 防止页面滚动
+    e.preventDefault();
+  });
+</script>
+</body>
+</html>

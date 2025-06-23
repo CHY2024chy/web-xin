@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            border: 1px solid #ccc;
+            width: 80%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        input {
+            width: 80%;
+            max-width: 600px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #f0d9b5;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+    <title>树洞留言</title>
+</head>
+
+<body>
+<ul>
+    <li>你们在干嘛呀</li>
+    <li>好无聊啊，去打球呗</li>
+    <li>谁知道最近有哪些好看的电影</li>
+    <li>周杰伦准备发新歌啦</li>
+</ul>
+<input type="text" placeholder="请输入留言">
+<button>树洞留言</button>
+<script>
+    let oUl = document.querySelector('ul');
+    let oButton = document.querySelector('button');
+    let oText = document.querySelector('input');
+    let aLis = document.querySelectorAll('li');
+
+    oUl.addEventListener('click', (e) => {
+        oUl.removeChild(e.target);
+    });
+
+    oButton.addEventListener('click', () => {
+        let oLi = document.createElement('li');
+        oLi.innerHTML = oText.value;
+        oUl.appendChild(oLi);
+        oText.value = '';
+    });
+</script>
+</body>
+
+</html>

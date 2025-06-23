@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .body {
+      margin: 5px auto;
+    }
+    #red {
+      width: 200px;
+      height: 200px;
+      margin: 5px auto;
+      background-color: red;
+    }
+    #green {
+      width: 150px;
+      height: 150px;
+      margin: 5px auto;
+      background-color: green;
+    }
+    #blue {
+      width: 100px;
+      margin: 5px auto;
+      height: 100px;
+      background-color: blue;
+
+    }
+  </style>
+</head>
+<body>
+<div id="red">
+    <div id="green">
+        <div id="blue"></div>
+    </div>
+</div>
+<script>
+  let oRed = document.querySelector('#red');
+  let oGreen = document.querySelector('#green');
+  let oBlue = document.querySelector('#blue');
+
+  oRed.addEventListener('click', (e) => {
+    e.stopPropagation();
+    console.log('红色');
+  });
+  oGreen.addEventListener('click', (e) => {
+    e.stopPropagation();
+    console.log('绿色');
+  });
+  oBlue.addEventListener('click', (e) => {
+    e.stopPropagation();
+    console.log('蓝色');
+  });
+</script>
+</body>
+</html>
